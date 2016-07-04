@@ -18,7 +18,12 @@ import org.bukkit.World;
 /**
  * Backup - The simple server backup solution.
  *
+<<<<<<< HEAD
  * @author Domenic Horner (gamerx)
+=======
+ * @author gamerx
+ * @author me@gamerx.me
+>>>>>>> dev
  */
 public class BackupWorlds {
 
@@ -38,7 +43,11 @@ public class BackupWorlds {
      * This should be the place where all the settings and paths for the backup
      * are defined.
      *
+<<<<<<< HEAD
      * @param plugin
+=======
+     * @param server
+>>>>>>> dev
      * @param settings
      * @param strings
      */
@@ -86,7 +95,11 @@ public class BackupWorlds {
 
         // Loops each world that needs to backed up, and do the required copies.
         while (!worldsToBackup.isEmpty()) {
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> dev
             String currentWorldName = worldsToBackup.removeFirst();
 
             // Get the current worlds seed.
@@ -206,4 +219,8 @@ public class BackupWorlds {
         }
         return toBackup;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

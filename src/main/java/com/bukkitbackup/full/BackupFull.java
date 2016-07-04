@@ -22,15 +22,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * Backup - The simple server backup solution.
  *
+<<<<<<< HEAD
  * @author Domenic Horner (gamerx)
  * @author gamerx@gamerx.me
+=======
+ * @author gamerx
+ * @author me@gamerx.me
+>>>>>>> dev
  */
 public class BackupFull extends JavaPlugin {
 
     // Public variables for class comms.
     private static PrepareBackup prepareBackup;
     public static BackupTask backupTask;
+<<<<<<< HEAD
     
+=======
+>>>>>>> dev
     // Private variables for this class.
     private static Settings settings;
     private static Strings strings;
@@ -57,12 +65,16 @@ public class BackupFull extends JavaPlugin {
         // Complete loading log utils.
         LogUtils.finishInitLogUtils(settings.getBooleanProperty("displaylog", true), settings.getBooleanProperty("debugenabled", false));
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
     }
 
     @Override
     public void onEnable() {
 
+<<<<<<< HEAD
         // BukkitMetrics Loading. (Not Plugin-Specific)
         try {
             MetricUtils metricUtils = new MetricUtils(this);
@@ -72,6 +84,8 @@ public class BackupFull extends JavaPlugin {
             LogUtils.exceptionLog(ex, "Exception loading metrics.");
         }
         
+=======
+>>>>>>> dev
         // Get server and plugin manager instances.
         Server pluginServer = getServer();
         PluginManager pluginManager = pluginServer.getPluginManager();
@@ -81,7 +95,11 @@ public class BackupFull extends JavaPlugin {
 
         // Setup backup tasks.
         backupTask = new BackupTask(this, settings, strings);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> dev
         // Create new "PrepareBackup" instance.
         prepareBackup = new PrepareBackup(this, settings, strings);
 
@@ -171,6 +189,7 @@ public class BackupFull extends JavaPlugin {
 
             // Schedule a repeating backup task.
             pluginServer.getScheduler().runTaskTimerAsynchronously(this, prepareBackup, backupIntervalInTicks, backupIntervalInTicks);
+<<<<<<< HEAD
 
             LogUtils.sendDebug("Doing recurring backup interval code. (M:0005)");
 
@@ -193,6 +212,39 @@ public class BackupFull extends JavaPlugin {
 
             LogUtils.sendDebug("Disabled automatic backup. (M:0007)");
 
+=======
+
+            LogUtils.sendDebug("Doing recurring backup interval code. (M:0005)");
+
+        } // If the backup should be done at pre-defined times.
+        else if (backupSchedArray != null) {
+
+            // Create a backup scheduler instance.
+            BackupScheduler backupScheduler = new BackupScheduler(this, prepareBackup, settings, strings, backupSchedArray);
+
+            // Start the scheduler as another thread.
+            pluginServer.getScheduler().runTaskAsynchronously(this, backupScheduler);
+
+            LogUtils.sendDebug("Doing time array backup code. (M:0006)");
+
+        } // Automatic backups must be disabled.
+        else {
+
+            // Alert the user of disabled backup.
+            LogUtils.sendLog(strings.getString("disbaledauto"));
+
+            LogUtils.sendDebug("Disabled automatic backup. (M:0007)");
+
+        }
+
+        // BukkitMetrics Loading. (Not Plugin-Specific)
+        try {
+            MetricUtils metricUtils = new MetricUtils(this);
+            metricUtils.start();
+            clientUID = metricUtils.guid;
+        } catch (IOException ex) {
+            LogUtils.exceptionLog(ex, "Exception loading metrics.");
+>>>>>>> dev
         }
 
         // If the update check is enabled.

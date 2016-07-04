@@ -9,6 +9,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 /**
  * Backup - The simple server backup solution.
  *
+<<<<<<< HEAD
  * @author Domenic Horner (gamerx)
  */
 public class UpdateChecker implements Runnable {
@@ -16,6 +17,16 @@ public class UpdateChecker implements Runnable {
     private PluginDescriptionFile descriptionFile;
     private Strings strings;
     private String clientID;
+=======
+ * @author gamerx
+ * @author me@gamerx.me
+ */
+public class UpdateChecker implements Runnable {
+
+    private final PluginDescriptionFile descriptionFile;
+    private final Strings strings;
+    private final String clientID;
+>>>>>>> dev
 
     public UpdateChecker(PluginDescriptionFile descriptionFile, Strings strings, String clientID) {
         this.descriptionFile = descriptionFile;
@@ -66,7 +77,12 @@ public class UpdateChecker implements Runnable {
 
             // Return the version.
             return webVersion;
+<<<<<<< HEAD
         } catch (Exception e) {
+=======
+        } catch (IOException e) {
+            LogUtils.exceptionLog(e, "Error checking for strings file.");
+>>>>>>> dev
             return null;
         }
     }

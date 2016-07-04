@@ -8,11 +8,20 @@ import org.bukkit.configuration.file.YamlConfiguration;
 /**
  * Backup - The simple server backup solution.
  *
+<<<<<<< HEAD
  * @author Domenic Horner (gamerx)
  */
 public class Strings {
 
     private File stringsFile;
+=======
+ * @author gamerx
+ * @author me@gamerx.me
+ */
+public class Strings {
+
+    private final File stringsFile;
+>>>>>>> dev
     private FileConfiguration strings;
 
     /**
@@ -67,7 +76,13 @@ public class Strings {
         strings = new YamlConfiguration();
         try {
             strings.load(stringsFile);
+<<<<<<< HEAD
         } catch (Exception e) {
+=======
+        } catch (IOException e) {
+            LogUtils.exceptionLog(e, "Error loading strings file.");
+        } catch (InvalidConfigurationException e) {
+>>>>>>> dev
             LogUtils.exceptionLog(e, "Error loading strings file.");
         }
     }
@@ -118,7 +133,7 @@ public class Strings {
     /**
      * Gets a value of the string property.
      *
-     * @param sname The identifier for the string.
+     * @param property The identifier for the string.
      * @return The string from properties, with colors encoded.
      */
     public String getString(String property) {

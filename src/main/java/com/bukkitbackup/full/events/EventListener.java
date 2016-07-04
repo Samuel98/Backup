@@ -16,14 +16,15 @@ import org.bukkit.plugin.Plugin;
 /**
  * Backup - The simple server backup solution.
  *
- * @author Domenic Horner (gamerx)
+ * @author gamerx
+ * @author me@gamerx.me
  */
 public class EventListener implements Listener {
 
     private PrepareBackup prepareBackup = null;
-    private Plugin plugin;
-    private Settings settings;
-    private Strings strings;
+    private final Plugin plugin;
+    private final Settings settings;
+    private final Strings strings;
     private int lastBackupID;
 
     /**
@@ -31,6 +32,8 @@ public class EventListener implements Listener {
      *
      * @param backupTask The BackupTast to call.
      * @param plugin Plugin to link this class too.
+     * @param settings
+     * @param strings
      */
     public EventListener(PrepareBackup backupTask, Plugin plugin, Settings settings, Strings strings) {
         this.prepareBackup = backupTask;
@@ -70,7 +73,11 @@ public class EventListener implements Listener {
             int intervalInMinutes = 15;
             if (intervalInMinutes != 0) {
                 int interval = intervalInMinutes * 1200;
+<<<<<<< HEAD
                 lastBackupID = plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, prepareBackup, interval);
+=======
+                lastBackupID = plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, prepareBackup, interval);
+>>>>>>> dev
                 LogUtils.sendLog(strings.getString("schedlastbackup", Integer.toString(intervalInMinutes)));
             } else {
                 LogUtils.sendLog(strings.getString("disbaledauto"));

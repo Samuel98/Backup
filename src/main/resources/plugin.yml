@@ -1,5 +1,9 @@
 name: Backup
+<<<<<<< HEAD
 version: 3.0
+=======
+version: 3.0-dev
+>>>>>>> dev
 description: A full and simple backup plugin.
 authors: [Meldanor, gamerx, lycano]
 website: http://www.bukkitbackup.com/
@@ -42,4 +46,8 @@ permissions:
   backup.bypass:
     description: Players with this permission are not counted as online players.
     default: false
+<<<<<<< HEAD
     
+=======
+    
+>>>>>>> dev

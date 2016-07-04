@@ -9,7 +9,12 @@ import java.io.FileFilter;
 /**
  * Backup - The simple server backup solution.
  *
+<<<<<<< HEAD
  * @author Domenic Horner (gamerx)
+=======
+ * @author gamerx
+ * @author me@gamerx.me
+>>>>>>> dev
  */
 public class BackupEverything {
 
@@ -31,6 +36,10 @@ public class BackupEverything {
         // Filefiler for excludes.
         fileFilter = new FileFilter() {
 
+<<<<<<< HEAD
+=======
+            @Override
+>>>>>>> dev
             public boolean accept(File f) {
 
                 // Disallow server.log and the backuppath.
@@ -61,11 +70,19 @@ public class BackupEverything {
 
     // The actual backup should be done here, as it is run in another thread.
     public void doEverything(String backupName) throws Exception {
+<<<<<<< HEAD
             // Copy the directory.
             FileUtils.copyDirectory(new File(".".concat(FILE_SEPARATOR)), new File(tempDestination.concat(backupName)), fileFilter, true);
 
             // Perform the zipping action.
             FileUtils.doCopyAndZIP(tempDestination.concat(backupName), backupPath.concat(FILE_SEPARATOR).concat(backupName), shouldZIP, useTemp);
+=======
+        // Copy the directory.
+        FileUtils.copyDirectory(new File(".".concat(FILE_SEPARATOR)), new File(tempDestination.concat(backupName)), fileFilter, true);
+
+        // Perform the zipping action.
+        FileUtils.doCopyAndZIP(tempDestination.concat(backupName), backupPath.concat(FILE_SEPARATOR).concat(backupName), shouldZIP, useTemp);
+>>>>>>> dev
 
     }
 }

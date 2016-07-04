@@ -22,7 +22,12 @@ import org.bukkit.plugin.Plugin;
 /**
  * Backup - The simple server backup solution.
  *
+<<<<<<< HEAD
  * @author Domenic Horner (gamerx)
+=======
+ * @author gamerx
+ * @author me@gamerx.me
+>>>>>>> dev
  */
 public class BackupTask implements Runnable {
 
@@ -39,7 +44,11 @@ public class BackupTask implements Runnable {
     private final String backupPath;
     private final String tempDestination;
     private String thisBackupName;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> dev
     // Threads.
     private final BackupWorlds worldBackupTask;
     private final BackupPlugins pluginBackupTask;
@@ -67,8 +76,13 @@ public class BackupTask implements Runnable {
         // Import backup tasks.
         everythingBackupTask = new BackupEverything(settings);
         worldBackupTask = new BackupWorlds(pluginServer, settings, strings);
+<<<<<<< HEAD
         pluginBackupTask =  new BackupPlugins(settings, strings);
         
+=======
+        pluginBackupTask = new BackupPlugins(settings, strings);
+
+>>>>>>> dev
         // Generate the worldStore.
         if (useTemp) {
             String tempFolder = settings.getStringProperty("tempfoldername", "");
@@ -82,6 +96,7 @@ public class BackupTask implements Runnable {
         }
 
     }
+<<<<<<< HEAD
 
     public void run() {
 
@@ -91,6 +106,18 @@ public class BackupTask implements Runnable {
         // Check if backupeverything enabled.
         if (backupEverything) {
 
+=======
+
+    @Override
+    public void run() {
+
+        // Get this instances folder name, set variables.
+        thisBackupName = getBackupName();
+
+        // Check if backupeverything enabled.
+        if (backupEverything) {
+
+>>>>>>> dev
             // Start the BackupEverything class.
             try {
                 everythingBackupTask.doEverything(thisBackupName);
@@ -118,7 +145,11 @@ public class BackupTask implements Runnable {
                 // Attempt to backup plugins.
                 try {
                     pluginBackupTask.doPlugins(thisBackupName);
+<<<<<<< HEAD
                 } catch (Exception e) {
+=======
+                } catch (IOException e) {
+>>>>>>> dev
                     LogUtils.exceptionLog(e, "Failed to backup plugins: Exception in BackupPlugins.");
                 }
             } else {
@@ -180,6 +211,7 @@ public class BackupTask implements Runnable {
                 LogUtils.sendDebug("Delete old backups. - Custom world container. (M:0015)");
 
                 backupDir = new File(backupPath.concat(FILE_SEPARATOR).concat(worldContainer));
+<<<<<<< HEAD
 
                 File[] worldFoldersToClean = backupDir.listFiles();
                 for (int l = 0; l < worldFoldersToClean.length; l++) {
@@ -300,10 +332,128 @@ public class BackupTask implements Runnable {
 
                 } else { // Using amount of backups.
 
+=======
+
+                File[] worldFoldersToClean = backupDir.listFiles();
+
+                for (File worldFoldersToClean1 : worldFoldersToClean) {
+                    // Make sure we are cleaning a directory.
+                    if (worldFoldersToClean1.isDirectory()) {
+                        cleanFolder(worldFoldersToClean1);
+                    }
+                }
+
+                backupDir = new File(backupPath.concat(FILE_SEPARATOR).concat("plugins"));
+
+                File[] pluginFolderToClean = backupDir.listFiles();
+
+                for (File pluginFolderToClean1 : pluginFolderToClean) {
+                    // Make sure we are cleaning a directory.
+                    if (pluginFolderToClean1.isDirectory()) {
+                        cleanFolder(pluginFolderToClean1);
+                    }
+                }
+            } else {
+
+                LogUtils.sendDebug("Delete old backups. - Split backup. - No custom container. (M:0016)");
+
+                File[] foldersToClean = backupDir.listFiles();
+
+                for (File foldersToClean1 : foldersToClean) {
+                    // Make sure we are cleaning a directory.
+                    if (foldersToClean1.isDirectory()) {
+                        cleanFolder(foldersToClean1);
+                    }
+                }
+            }
+
+        } else { // Clean entire directory.
+
+            LogUtils.sendDebug("Delete old backups.- Plain and simple (M:0017)");
+
+            cleanFolder(backupDir);
+        }
+    }
+
+    private void cleanFolder(File folderToClean) throws IOException {
+
+        LogUtils.sendDebug("Attempting to clean: " + folderToClean.toString() + " (M:0014)");
+
+        try {
+
+            // Get total backup limit.
+            long backupLimit = settings.getBackupLimits();
+            if (backupLimit != 0) {
+
+                // List all the files inside this folder.
+                File[] filesList = FileUtils.listItemsInDir(folderToClean);
+
+                LogUtils.sendDebug("Files: (M:0018)");
+                LogUtils.sendDebug(filesList.toString());
+
+                // Check we listed the directory.
+                if (filesList == null) {
+                    LogUtils.sendLog(strings.getString("failedlistdir"));
+                    return;
+                }
+
+                // Using size to limit backups.
+                if (settings.useMaxSizeBackup) {
+
+                    // Get total folder size.
+                    long totalFolderSize = FileUtils.getTotalFolderSize(folderToClean);
+
+                    // If the amount of files exceeds the max backups to keep.
+                    if (totalFolderSize > backupLimit) {
+
+                        // Create a list for deleted backups.
+                        ArrayList<File> deletedList = new ArrayList<File>(filesList.length);
+
+                        // Inti variables.
+                        int maxModifiedIndex;
+                        long maxModified;
+
+                        // While the total folder size is bigger than the limit.
+                        while (FileUtils.getTotalFolderSize(folderToClean) > backupLimit) {
+
+                            // Create updated list.
+                            filesList = FileUtils.listFilesInDir(folderToClean);
+
+                            // List of all the backups.
+                            ArrayList<File> backupList = new ArrayList<File>(filesList.length);
+                            backupList.addAll(Arrays.asList(filesList));
+
+                            // Loop backup list.
+                            for (int i = 0; backupList.size() > 1; i++) {
+                                maxModifiedIndex = 0;
+                                maxModified = backupList.get(0).lastModified();
+                                for (int j = 1; j < backupList.size(); ++j) {
+                                    File currentFile = backupList.get(j);
+                                    if (currentFile.lastModified() > maxModified) {
+                                        maxModified = currentFile.lastModified();
+                                        maxModifiedIndex = j;
+                                    }
+                                }
+                                backupList.remove(maxModifiedIndex);
+                            }
+
+                            FileUtils.deleteDirectory(backupList.get(0));
+                            deletedList.add(backupList.get(0));
+                        }
+
+                        // Inform the user what backups are being deleted.
+                        LogUtils.sendLog(strings.getString("removeoldsize"));
+                        LogUtils.sendLog(Arrays.toString(deletedList.toArray()));
+                    }
+
+                } else { // Using amount of backups.
+
+>>>>>>> dev
                     // If the amount of files exceeds the max backups to keep.
                     if (filesList.length > backupLimit) {
                         ArrayList<File> backupList = new ArrayList<File>(filesList.length);
                         backupList.addAll(Arrays.asList(filesList));
+<<<<<<< HEAD
 
                         int maxModifiedIndex;
                         long maxModified;
@@ -332,6 +482,36 @@ public class BackupTask implements Runnable {
                         }
                     }
 
+=======
+
+                        int maxModifiedIndex;
+                        long maxModified;
+
+                        //Remove the newst backups from the list.
+                        for (int i = 0; i < backupLimit; ++i) {
+                            maxModifiedIndex = 0;
+                            maxModified = backupList.get(0).lastModified();
+                            for (int j = 1; j < backupList.size(); ++j) {
+                                File currentFile = backupList.get(j);
+                                if (currentFile.lastModified() > maxModified) {
+                                    maxModified = currentFile.lastModified();
+                                    maxModifiedIndex = j;
+                                }
+                            }
+                            backupList.remove(maxModifiedIndex);
+                        }
+
+                        // Inform the user what backups are being deleted.
+                        LogUtils.sendLog(strings.getString("removeoldage"));
+                        LogUtils.sendLog(Arrays.toString(backupList.toArray()));
+
+                        // Finally delete the backups.
+                        for (File backupToDelete : backupList) {
+                            FileUtils.deleteDir(backupToDelete);
+                        }
+                    }
+
+>>>>>>> dev
                 }
             }
         } catch (SecurityException se) {
@@ -344,7 +524,11 @@ public class BackupTask implements Runnable {
      * scheduler to prevent thread problems.
      */
     private void finishBackup() {
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> dev
         // Create new Runnable instance.
         Runnable run = new Runnable() {
 
@@ -393,9 +577,13 @@ public class BackupTask implements Runnable {
                                 Player[] players = pluginServer.getOnlinePlayers();
 
                                 // Loop through all online players.
+<<<<<<< HEAD
                                 for (int pos = 0; pos < players.length; pos++) {
                                     Player currentplayer = players[pos];
 
+=======
+                                for (Player currentplayer : players) {
+>>>>>>> dev
                                     // If the current player has the right permissions, notify them.
                                     if (currentplayer.hasPermission("backup.notify")) {
                                         currentplayer.sendMessage(thisMessage);
@@ -415,8 +603,12 @@ public class BackupTask implements Runnable {
                             Player[] players = pluginServer.getOnlinePlayers();
 
                             // Loop through all online players.
+<<<<<<< HEAD
                             for (int pos = 0; pos < players.length; pos++) {
                                 Player currentplayer = players[pos];
+=======
+                            for (Player currentplayer : players) {
+>>>>>>> dev
 
                                 // If the current player has the right permissions, notify them.
                                 if (currentplayer.hasPermission("backup.notify")) {

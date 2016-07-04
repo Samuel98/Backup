@@ -9,7 +9,12 @@ import org.bukkit.plugin.Plugin;
 /**
  * Backup - The simple server backup solution.
  *
+<<<<<<< HEAD
  * @author Domenic Horner (gamerx)
+=======
+ * @author gamerx
+ * @author me@gamerx.me
+>>>>>>> dev
  */
 public class LogUtils {
 

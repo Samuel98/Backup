@@ -1,6 +1,6 @@
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
 #  Configuration file for "Backup". #
-#  @author Domenic Horner (gamerx)  #
+#         @author gamerx            #
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
 
 #======== Backup Settings ==========#
@@ -89,4 +89,8 @@ checkversion: true
 ##   Internal Settings (Read: DO NOT EDIT)   ##
 ###############################################
 
+<<<<<<< HEAD
 version: 3.0
+=======
+version: 3.0-dev
+>>>>>>> dev

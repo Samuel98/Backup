@@ -10,7 +10,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 /**
  * Backup - The simple server backup solution.
  *
+<<<<<<< HEAD
  * @author Domenic Horner (gamerx)
+=======
+ * @author gamerx
+ * @author me@gamerx.me
+>>>>>>> dev
  */
 public final class Settings {
 
@@ -19,10 +24,17 @@ public final class Settings {
     public boolean useMaxSizeBackup = false;
 
     public Settings(File configFile, Strings strings) {
+<<<<<<< HEAD
         
         // Populate the strings variable.
         Settings.strings = strings;
 
+=======
+
+        // Populate the strings variable.
+        Settings.strings = strings;
+
+>>>>>>> dev
         try {
 
             // Checks if configuration file exists, creates it if it does not.
@@ -45,7 +57,11 @@ public final class Settings {
                         bWriter.newLine();
                     }
 
+<<<<<<< HEAD
                 } catch (Exception e) {
+=======
+                } catch (IOException e) {
+>>>>>>> dev
                     LogUtils.exceptionLog(e, "Error opening stream.");
                 } finally {
                     try {
@@ -57,7 +73,11 @@ public final class Settings {
                         if (bWriter != null) {
                             bWriter.close();
                         }
+<<<<<<< HEAD
                     } catch (Exception e) {
+=======
+                    } catch (IOException e) {
+>>>>>>> dev
                         LogUtils.exceptionLog(e, "Error closing configuration stream.");
                     }
                 }
@@ -67,7 +87,13 @@ public final class Settings {
             settings = new YamlConfiguration();
             settings.load(configFile);
 
+<<<<<<< HEAD
         } catch (Exception e) {
+=======
+        } catch (IOException e) {
+            LogUtils.exceptionLog(e, "Failed to load configuration.");
+        } catch (InvalidConfigurationException e) {
+>>>>>>> dev
             LogUtils.exceptionLog(e, "Failed to load configuration.");
         }
     }
