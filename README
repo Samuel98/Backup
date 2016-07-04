@@ -1,8 +1,11 @@
 /*
  *          -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ *
+ *  Backup - Bukkit and Spigot server backup plugin. (resumed development)
+ *  Copyright (C) 2016 Samuel98 <https://github.com/Samuel98>
  * 
  *  Backup - Bukkit server backup plugin. (continued development)
- *  Copyright (C) 2012 - 2013 gamerx <https://github.com/gamerx>
+ *  Copyright (C) 2012 - 2013 Domenic Horner <https://github.com/gamerx>
  *  Copyright (C) 2011 Lycano <https://github.com/lycano>
  * 
  *  Backup - CraftBukkit server Backup plugin (original author)

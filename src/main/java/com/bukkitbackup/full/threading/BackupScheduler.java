@@ -11,12 +11,8 @@ import org.bukkit.plugin.Plugin;
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
-=======
- * @author gamerx
- * @author me@gamerx.me
->>>>>>> dev
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class BackupScheduler implements Runnable {
 
@@ -37,33 +33,8 @@ public class BackupScheduler implements Runnable {
     }
 
     public void run() {
-<<<<<<< HEAD
-        
-        // Loop to check if we need to backup.
-        while(true) {
-            
-            LogUtils.sendDebug("Checking if we should backup. (M:0008)");
-            
-            // Get current time, and format it to our requirements.
-            Calendar calendarInstance = Calendar.getInstance();
-            String timeNow = new SimpleDateFormat("HH:mm").format(calendarInstance.getTime());
-            
-            LogUtils.sendDebug("Time is: "+ timeNow + " (M:0009)");
-            
-            // Loop the array of times we want to backup at.
-            for (int j = 0; j < timesArray.length; j++) {
-                
-                // If we want to backup this minute, schedule a backupTask.
-                if(timesArray[j].equals(timeNow)) {
-                    pluginServer.getScheduler().scheduleSyncDelayedTask(plugin, prepareBackup);
-                }
-            }
-            
-=======
-
         // Loop to check if we need to backup.
         while (true) {
-
             LogUtils.sendDebug("Checking if we should backup. (M:0008)");
 
             // Get current time, and format it to our requirements.
@@ -74,28 +45,18 @@ public class BackupScheduler implements Runnable {
 
             // Loop the array of times we want to backup at.
             for (String timesArray1 : timesArray) {
-
                 // If we want to backup this minute, schedule a backupTask.
                 if (timesArray1.equals(timeNow)) {
                     pluginServer.getScheduler().scheduleAsyncDelayedTask(plugin, prepareBackup);
                 }
             }
 
->>>>>>> dev
             // This sleeps the thread for 30 seconds in order to do another check.
             try {
                 Thread.sleep(30000);
             } catch (InterruptedException ex) {
                 LogUtils.exceptionLog(ex);
             }
-<<<<<<< HEAD
-            
         }
-        
-=======
-
-        }
-
->>>>>>> dev
     }
 }

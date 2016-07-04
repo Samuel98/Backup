@@ -1,6 +1,3 @@
-/*
- * Copyright 2011 Tyler Blair. All rights reserved.
- */
 package com.bukkitbackup.full.utils;
 
 import org.bukkit.Bukkit;
@@ -35,21 +32,6 @@ public final class MetricUtils {
     /**
      * The current revision number
      */
-<<<<<<< HEAD
-    private final static int REVISION = 5;
-    /**
-     * The base url of the metrics domain
-     */
-    private static final String BASE_URL = "http://mcstats.org";
-    /**
-     * The url used to report a server's status
-     */
-    private static final String REPORT_URL = "/report/%s";
-    /**
-     * Interval of time to ping (in minutes)
-     */
-    private final static int PING_INTERVAL = 10;
-=======
     private final static int REVISION = 7;
 
     /**
@@ -67,60 +49,40 @@ public final class MetricUtils {
      */
     private static final int PING_INTERVAL = 15;
 
->>>>>>> dev
     /**
      * The plugin this metrics submits for
      */
     private final Plugin plugin;
-<<<<<<< HEAD
-=======
 
     /**
      * All of the custom graphs to submit to metrics
      */
     private final Set<Graph> graphs = Collections.synchronizedSet(new HashSet<Graph>());
 
->>>>>>> dev
     /**
      * The plugin configuration file
      */
     private final YamlConfiguration configuration;
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
     /**
      * The plugin configuration file
      */
     private final File configurationFile;
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
     /**
      * Unique server id
      */
     public final String guid;
-<<<<<<< HEAD
-=======
 
     /**
      * Debug mode
      */
     private final boolean debug;
 
->>>>>>> dev
     /**
      * Lock for synchronization
      */
     private final Object optOutLock = new Object();
-<<<<<<< HEAD
-    /**
-     * Id of the scheduled task
-     */
-    private volatile int taskId = -1;
-=======
->>>>>>> dev
 
     /**
      * The scheduled task
@@ -154,9 +116,6 @@ public final class MetricUtils {
         debug = configuration.getBoolean("debug", false);
     }
 
-<<<<<<< HEAD
-    /**
-=======
     /**
      * Construct and create a Graph that can be used to separate specific
      * plotters to their own graphs on the metrics website. Plotters can be
@@ -196,7 +155,6 @@ public final class MetricUtils {
     }
 
     /**
->>>>>>> dev
      * Start measuring statistics. This will immediately create an async
      * repeating task as the plugin and send the initial data to the metrics
      * backend, and then after that it will post in increments of PING_INTERVAL
@@ -217,11 +175,7 @@ public final class MetricUtils {
             }
 
             // Begin hitting the server with glorious data
-<<<<<<< HEAD
-            taskId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-=======
             task = plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
->>>>>>> dev
 
                 private boolean firstPost = true;
 
@@ -271,12 +225,6 @@ public final class MetricUtils {
                 // Reload the metrics file
                 configuration.load(getConfigFile());
             } catch (IOException ex) {
-<<<<<<< HEAD
-                Bukkit.getLogger().log(Level.INFO, "[Metrics] " + ex.getMessage());
-                return true;
-            } catch (InvalidConfigurationException ex) {
-                Bukkit.getLogger().log(Level.INFO, "[Metrics] " + ex.getMessage());
-=======
                 if (debug) {
                     Bukkit.getLogger().log(Level.INFO, "[Metrics] " + ex.getMessage());
                 }
@@ -285,7 +233,6 @@ public final class MetricUtils {
                 if (debug) {
                     Bukkit.getLogger().log(Level.INFO, "[Metrics] " + ex.getMessage());
                 }
->>>>>>> dev
                 return true;
             }
             return configuration.getBoolean("opt-out", false);
@@ -365,7 +312,7 @@ public final class MetricUtils {
         boolean onlineMode = Bukkit.getServer().getOnlineMode(); // TRUE if online mode is enabled
         String pluginVersion = description.getVersion();
         String serverVersion = Bukkit.getVersion();
-        int playersOnline = Bukkit.getServer().getOnlinePlayers().length;
+        int playersOnline = Bukkit.getServer().getOnlinePlayers().size();
 
         // END server software specific section -- all code below does not use any code outside of this class / Java
         // Construct the post data
@@ -516,12 +463,7 @@ public final class MetricUtils {
     }
 
     /**
-<<<<<<< HEAD
-     * Check if mineshafter is present. If it is, we need to bypass it to send
-     * POST requests
-=======
      * GZip compress a string of bytes
->>>>>>> dev
      *
      * @param input
      * @return
@@ -563,18 +505,7 @@ public final class MetricUtils {
     }
 
     /**
-<<<<<<< HEAD
-     * <p>Encode a key/value data pair to be used in a HTTP post request. This
-     * INCLUDES a & so the first key/value pair MUST be included manually,
-     * e.g:</p>
-     * <code>
-     * StringBuffer data = new StringBuffer();
-     * data.append(encode("guid")).append('=').append(encode(guid));
-     * encodeDataPair(data, "version", description.getVersion());
-     * </code>
-=======
      * Appends a json encoded key/value pair to the given string builder.
->>>>>>> dev
      *
      * @param json
      * @param key
@@ -662,9 +593,6 @@ public final class MetricUtils {
     private static String urlEncode(final String text) throws UnsupportedEncodingException {
         return URLEncoder.encode(text, "UTF-8");
     }
-<<<<<<< HEAD
-}
-=======
 
     /**
      * Represents a custom graph on the website
@@ -814,4 +742,3 @@ public final class MetricUtils {
         }
     }
 }
->>>>>>> dev

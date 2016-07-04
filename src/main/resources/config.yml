@@ -1,6 +1,6 @@
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
 #  Configuration file for "Backup". #
-#         @author gamerx            #
+#         @author Samuel98          #
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
 
 #======== Backup Settings ==========#
@@ -34,11 +34,11 @@ fullbackup: false
 # Note: Path can be relative, or absolute. ('D:\Backups', '/var/backups', 'altbackups', and '~/backups' are all valid)
 backuppath: backups
 
-## Tempoary folder settings. (Default: false/none)
+## Tempoary folder settings. (Default: true)
 # These settings are for storing tempoary files while backup is in progress.
 # Note: Path can be relative or absolute. ('D:\temp', '/tmp', 'temp', and '~/backups/temp' are all valid)
 # If the folder name is not set, it defaults to a temp folder under the backups folder.
-usetempfolder: false
+usetemp: true
 tempfoldername:
 
 ## Whether to ZIP Backups or not. (Default: true)
@@ -89,8 +89,4 @@ checkversion: true
 ##   Internal Settings (Read: DO NOT EDIT)   ##
 ###############################################
 
-<<<<<<< HEAD
-version: 3.0
-=======
-version: 3.0-dev
->>>>>>> dev
+version: 3.1

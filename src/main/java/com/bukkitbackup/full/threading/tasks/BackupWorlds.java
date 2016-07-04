@@ -18,12 +18,8 @@ import org.bukkit.World;
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
-=======
- * @author gamerx
- * @author me@gamerx.me
->>>>>>> dev
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class BackupWorlds {
 
@@ -43,16 +39,11 @@ public class BackupWorlds {
      * This should be the place where all the settings and paths for the backup
      * are defined.
      *
-<<<<<<< HEAD
-     * @param plugin
-=======
-     * @param server
->>>>>>> dev
-     * @param settings
-     * @param strings
+     * @param server Server.
+     * @param settings Settings.
+     * @param strings Strings.
      */
     public BackupWorlds(Server server, final Settings settings, Strings strings) {
-
         this.pluginServer = server;
         this.settings = settings;
         this.strings = strings;
@@ -85,7 +76,6 @@ public class BackupWorlds {
 
     // The actual backup should be done here.
     public void doWorlds(String backupName) throws Exception {
-
         LinkedList<String> worldsToBackup = getWorldsToBackup();
 
         // Alert the user.
@@ -95,11 +85,6 @@ public class BackupWorlds {
 
         // Loops each world that needs to backed up, and do the required copies.
         while (!worldsToBackup.isEmpty()) {
-<<<<<<< HEAD
-            
-=======
-
->>>>>>> dev
             String currentWorldName = worldsToBackup.removeFirst();
 
             // Get the current worlds seed.
@@ -107,7 +92,6 @@ public class BackupWorlds {
 
             // Check for split backup.
             if (splitBackup) {
-
                 // Init backup path variable.
                 String thisWorldBackupPath = backupPath.concat(FILE_SEPARATOR).concat(currentWorldName);
                 // backups/world
@@ -183,7 +167,6 @@ public class BackupWorlds {
 
                 // Copy the current world into it's backup folder.
                 FileUtils.copyDirectory(pluginServer.getWorldContainer().getAbsolutePath().concat(FILE_SEPARATOR).concat(currentWorldName), copyDestination);
-
             }
         }
     }
@@ -194,13 +177,11 @@ public class BackupWorlds {
      * @return A List[] of the world names we should not be backing up.
      */
     private List<String> getIgnoredWorldNames() {
-
         // Get skipped worlds form config.
         List<String> worldNames = Arrays.asList(settings.getStringProperty("skipworlds", "").split(";"));
 
         // Loop all ignored worlds.
-        if (worldNames.size() > 0 && !worldNames.get(0).isEmpty()) {
-
+        if (worldNames.size() > 0 && (worldNames.get(0) != null)) {
             // Log what worlds are disabled.
             LogUtils.sendLog(strings.getString("disabledworlds"));
             LogUtils.sendLog(worldNames.toString());
@@ -213,14 +194,10 @@ public class BackupWorlds {
     private LinkedList<String> getWorldsToBackup() {
         LinkedList<String> toBackup = new LinkedList<String>();
         for (World loopWorld : pluginServer.getWorlds()) {
-            if ((loopWorld.getName() != null) && !loopWorld.getName().isEmpty() && (!ignoredWorlds.contains(loopWorld.getName()))) {
+            if ((loopWorld.getName() != null) && (!ignoredWorlds.contains(loopWorld.getName()))) {
                 toBackup.add(loopWorld.getName());
             }
         }
         return toBackup;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev

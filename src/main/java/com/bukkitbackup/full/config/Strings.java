@@ -2,26 +2,19 @@ package com.bukkitbackup.full.config;
 
 import com.bukkitbackup.full.utils.LogUtils;
 import java.io.*;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
- */
-public class Strings {
-
-    private File stringsFile;
-=======
- * @author gamerx
- * @author me@gamerx.me
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class Strings {
 
     private final File stringsFile;
->>>>>>> dev
     private FileConfiguration strings;
 
     /**
@@ -31,16 +24,13 @@ public class Strings {
      * @param stringsFile The file that strings should be loaded from.
      */
     public Strings(File stringsFile) {
-
         this.stringsFile = stringsFile;
 
         try {
-
             // Check strings file exists, and create is needed.
             if (!stringsFile.exists()) {
                 createDefaultStrings();
             }
-
         } catch (Exception e) {
             LogUtils.exceptionLog(e, "Error checking for strings file.");
         }
@@ -56,7 +46,6 @@ public class Strings {
      * @param requiredVersion The required version from the settings file.
      */
     public void checkStringsVersion(String requiredVersion) {
-
         // Get the version information from the file.
         String stringVersion = strings.getString("version", null);
 
@@ -66,7 +55,6 @@ public class Strings {
         } else if (!stringVersion.equals(requiredVersion)) {
             LogUtils.sendLog(this.getString("stringsupdate"));
         }
-
     }
 
     /**
@@ -76,13 +64,9 @@ public class Strings {
         strings = new YamlConfiguration();
         try {
             strings.load(stringsFile);
-<<<<<<< HEAD
-        } catch (Exception e) {
-=======
         } catch (IOException e) {
             LogUtils.exceptionLog(e, "Error loading strings file.");
         } catch (InvalidConfigurationException e) {
->>>>>>> dev
             LogUtils.exceptionLog(e, "Error loading strings file.");
         }
     }
@@ -91,7 +75,6 @@ public class Strings {
      * Method to create (or re-create) the strings configuration file.
      */
     private void createDefaultStrings() {
-
         // Check if it exists, if it does, delete it.
         if (stringsFile.exists()) {
             stringsFile.delete();
@@ -103,7 +86,6 @@ public class Strings {
         String line;
 
         try {
-
             // Open a stream to the properties file in the jar, because we can only access over the class loader.
             bReader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/resources/strings.yml")));
             bWriter = new BufferedWriter(new FileWriter(stringsFile));
@@ -137,7 +119,6 @@ public class Strings {
      * @return The string from properties, with colors encoded.
      */
     public String getString(String property) {
-
         // Get string for this name.
         String string = strings.getString(property);
 
@@ -158,7 +139,6 @@ public class Strings {
      * replaced.
      */
     public String getString(String property, String option) {
-
         // Get string for this name.
         String string = strings.getString(property);
 
@@ -180,7 +160,6 @@ public class Strings {
      * replaced.
      */
     public String getString(String property, String optionOne, String optionTwo) {
-
         // Get string for this name.
         String string = strings.getString(property);
 
@@ -199,11 +178,10 @@ public class Strings {
      * Encodes the color codes, and returns the encoded string. If the parameter
      * is blank or null, return blank.
      *
-     * @param toColour The string to encode.
+     * @param toColor The string to encode.
      * @return The encoded string.
      */
     private String colorizeString(String toColor) {
-
         // Check we got passed a string.
         if (toColor != null) {
             return toColor.replaceAll("&([0-9a-fklmnor])", "\u00A7$1");

@@ -191,8 +191,7 @@ public class FileUtils {
      * @throws IOException if source or destination is invalid
      * @since Commons IO 1.4
      */
-    public static void copyDirectory(File srcDir, File destDir,
-            FileFilter filter, boolean preserveFileDate) throws IOException {
+    public static void copyDirectory(File srcDir, File destDir, FileFilter filter, boolean preserveFileDate) throws IOException {
         if (srcDir == null) {
             throw new NullPointerException("Source must not be null");
         }
@@ -277,8 +276,7 @@ public class FileUtils {
      * Internal copy file method.
      *
      * @param srcFile the validated source file, must not be <code>null</code>
-     * @param destFile the validated destination file, must not be
-     * <code>null</code>
+     * @param destFile the validated destination file, must not be <code>null</code>
      * @param preserveFileDate whether to preserve the file date
      * @throws IOException if an error occurs
      */
@@ -366,14 +364,9 @@ public class FileUtils {
         if (!directory.exists()) {
             return;
         }
-        
+
         cleanDirectory(directory);
 
-<<<<<<< HEAD
-=======
-        cleanDirectory(directory);
-
->>>>>>> dev
         // Attempt deletion.
         if (!directory.delete()) {
             String message = "Unable to delete directory " + directory + ".";
@@ -597,14 +590,9 @@ public class FileUtils {
      *
      * @param sourceDIR The source directory. (ex: "backups/temp/xxxxxxxx")
      * @param finalDIR The final destination. (ex: "backups/xxxxxxxx")
-<<<<<<< HEAD
-     */
-=======
      * @param shouldZIP
      * @param useTempFolder
      */
-     
->>>>>>> dev
     public static void doCopyAndZIP(String sourceDIR, String finalDIR, boolean shouldZIP, boolean useTempFolder) {
 
         if (useTempFolder) {
@@ -647,11 +635,6 @@ public class FileUtils {
 
         }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> dev
     }
 
     public static File[] listFilesInDir(File directory) {
@@ -664,12 +647,7 @@ public class FileUtils {
         });
         return filesList;
     }
-<<<<<<< HEAD
-    
-    
-=======
 
->>>>>>> dev
     public static File[] listItemsInDir(File directory) {
         return directory.listFiles();
     }
@@ -677,25 +655,13 @@ public class FileUtils {
     public static long getTotalFolderSize(File folder) {
         long bytes = 0L;
         File[] filelist = folder.listFiles();
-<<<<<<< HEAD
-        for (int i = 0; i < filelist.length; i++) {
-            if (filelist[i].isDirectory()) {
-                bytes += getTotalFolderSize(filelist[i]);
-            } else {
-                bytes += filelist[i].length();
-=======
         for (File filelist1 : filelist) {
             if (filelist1.isDirectory()) {
                 bytes += getTotalFolderSize(filelist1);
             } else {
                 bytes += filelist1.length();
->>>>>>> dev
             }
         }
         return bytes;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev

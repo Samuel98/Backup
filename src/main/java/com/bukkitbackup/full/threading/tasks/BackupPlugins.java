@@ -14,12 +14,8 @@ import java.util.List;
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
-=======
- * @author gamerx
- * @author me@gamerx.me
->>>>>>> dev
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class BackupPlugins {
 
@@ -34,7 +30,6 @@ public class BackupPlugins {
     private final FileFilter pluginsFileFilter;
 
     public BackupPlugins(Settings settings, Strings strings) {
-
         this.strings = strings;
 
         // Get the backup destination.
@@ -49,41 +44,24 @@ public class BackupPlugins {
 
         // The FileFilter instance for skipped/enabled plugins.
         pluginsFileFilter = new FileFilter() {
-
-<<<<<<< HEAD
-=======
-            @Override
->>>>>>> dev
             public boolean accept(File name) {
-
                 // Check if there are plugins listed.
-                if (pluginList.size() > 0 && !pluginList.get(0).isEmpty()) {
-
+                if (pluginList.size() > 0 && pluginList.get(0).length() != 0) {
                     // Loop each plugin.
-                    for (int i = 0; i < pluginList.size(); i++) {
-
-                        String findMe = "plugins".concat(FILE_SEPARATOR).concat(pluginList.get(i));
+                    for (String aPluginList : pluginList) {
+                        String findMe = "plugins".concat(FILE_SEPARATOR).concat(aPluginList);
 
                         int isFound = name.getPath().indexOf(findMe);
 
                         // Check if the current plugin matches the string.
                         if (isFound != -1) {
-
                             // Return false for exclude, true to include.
-                            if (pluginListMode) {
-                                return false;
-                            } else {
-                                return true;
-                            }
+                            return !pluginListMode;
                         }
                     }
                 }
 
-                if (pluginListMode) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return pluginListMode;
             }
         };
 
@@ -102,17 +80,12 @@ public class BackupPlugins {
 
     // The actual backup should be done here.
     public void doPlugins(String backupName) throws IOException {
-
         // Setup Source and destination DIR's.
         File pluginsFolder = new File("plugins");
 
         // Touch the folder to update the modified date.
         pluginsFolder.setLastModified(System.currentTimeMillis());
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
         String thisTempDestination;
         if (splitBackup) {
             thisTempDestination = backupPath.concat(FILE_SEPARATOR).concat("plugins").concat(FILE_SEPARATOR).concat(backupName);
@@ -122,7 +95,7 @@ public class BackupPlugins {
         FileUtils.checkFolderAndCreate(new File(thisTempDestination));
 
         // Perform plugin backup.
-        if (pluginList.size() > 0 && !pluginList.get(0).isEmpty()) {
+        if (pluginList.size() > 0 &&  pluginList.get(0).length() != 0) {
             if (pluginListMode) {
                 LogUtils.sendLog(strings.getString("disabledplugins"));
             } else {
@@ -141,11 +114,7 @@ public class BackupPlugins {
                     FileUtils.deleteDirectory(new File(thisTempDestination));
                     new File(thisTempDestination).delete();
                 }
-<<<<<<< HEAD
-            } catch (Exception e) {
-=======
             } catch (IOException e) {
->>>>>>> dev
                 LogUtils.exceptionLog(e);
             }
         }

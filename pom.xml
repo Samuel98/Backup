@@ -2,27 +2,23 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bukkitbackup</groupId>
     <artifactId>Backup</artifactId>
-<<<<<<< HEAD
-    <version>3.0</version>
-=======
-    <version>3.0-dev</version>
->>>>>>> dev
+    <version>3.1</version>
     <name>Backup</name>
     <description>A Backup plugin for Bukkit's Server mod API.</description>
-    <url>https://github.com/gamerx/Backup</url>
+    <url>https://github.com/Samuel98/Backup</url>
     <repositories>
         <repository>
-            <id>repo.bukkit.org</id>
-            <url>http://repo.bukkit.org/content/groups/public/</url>
+            <id>spigot-maven-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/gamerx/Backup/issues</url>
+        <url>https://github.com/Samuel98/Backup/issues</url>
     </issueManagement>
     <build>
         <finalName>Backup</finalName>
-    	<defaultGoal>install</defaultGoal>
+        <defaultGoal>install</defaultGoal>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <resources>
             <resource>
@@ -66,10 +62,19 @@
         </plugins>
     </build>
     <dependencies>
+        <!--Spigot API-->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.10.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--Bukkit API-->
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.6.4-R2.0</version>
+            <version>1.10.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <properties>

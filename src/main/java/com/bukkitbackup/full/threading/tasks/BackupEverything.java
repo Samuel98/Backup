@@ -9,12 +9,8 @@ import java.io.FileFilter;
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
-=======
- * @author gamerx
- * @author me@gamerx.me
->>>>>>> dev
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class BackupEverything {
 
@@ -25,7 +21,6 @@ public class BackupEverything {
     private final FileFilter fileFilter;
 
     public BackupEverything(final Settings settings) {
-
         // Get the backup destination.
         backupPath = settings.getStringProperty("backuppath", "backups");
 
@@ -35,23 +30,9 @@ public class BackupEverything {
 
         // Filefiler for excludes.
         fileFilter = new FileFilter() {
-
-<<<<<<< HEAD
-=======
-            @Override
->>>>>>> dev
             public boolean accept(File f) {
-
                 // Disallow server.log and the backuppath.
-                if (f.getName().equals(settings.getStringProperty("backuppath", "backups"))) {
-                    return false;
-                }
-
-                if (f.getName().equals("server.log")) {
-                    return false;
-                }
-
-                return true;
+                return !f.getName().equals(settings.getStringProperty("backuppath", "backups")) && !f.getName().equals("server.log");
             }
         };
 
@@ -70,19 +51,10 @@ public class BackupEverything {
 
     // The actual backup should be done here, as it is run in another thread.
     public void doEverything(String backupName) throws Exception {
-<<<<<<< HEAD
-            // Copy the directory.
-            FileUtils.copyDirectory(new File(".".concat(FILE_SEPARATOR)), new File(tempDestination.concat(backupName)), fileFilter, true);
-
-            // Perform the zipping action.
-            FileUtils.doCopyAndZIP(tempDestination.concat(backupName), backupPath.concat(FILE_SEPARATOR).concat(backupName), shouldZIP, useTemp);
-=======
         // Copy the directory.
         FileUtils.copyDirectory(new File(".".concat(FILE_SEPARATOR)), new File(tempDestination.concat(backupName)), fileFilter, true);
 
         // Perform the zipping action.
         FileUtils.doCopyAndZIP(tempDestination.concat(backupName), backupPath.concat(FILE_SEPARATOR).concat(backupName), shouldZIP, useTemp);
->>>>>>> dev
-
     }
 }

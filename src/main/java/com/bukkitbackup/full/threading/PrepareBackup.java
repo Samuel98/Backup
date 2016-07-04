@@ -14,12 +14,8 @@ import org.bukkit.plugin.Plugin;
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
-=======
- * @author gamerx
- * @author me@gamerx.me
->>>>>>> dev
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class PrepareBackup implements Runnable {
 
@@ -39,10 +35,6 @@ public class PrepareBackup implements Runnable {
         this.strings = strings;
     }
 
-<<<<<<< HEAD
-=======
-    @Override
->>>>>>> dev
     public synchronized void run() {
         if (backupInProgress) {
             LogUtils.sendLog(strings.getString("backupinprogress"));
@@ -59,19 +51,16 @@ public class PrepareBackup implements Runnable {
      * It then runs the doBackup if needed.
      */
     private void checkShouldDoBackup() {
-
         // If it is a manual doBackup, start it, otherwise, perform checks.
         if (isManualBackup) {
             prepareBackup();
         } else if (backupEnabled) {
-
             // No player checking.
             if (settings.getBooleanProperty("backupemptyserver", false)) {
                 prepareBackup();
             } else {
-
                 // Checking online players.
-                if (pluginServer.getOnlinePlayers().length == 0) {
+                if (pluginServer.getOnlinePlayers().size() == 0) {
 
                     // Check if last backup
                     if (isLastBackup) {
@@ -82,15 +71,11 @@ public class PrepareBackup implements Runnable {
                         LogUtils.sendLog(strings.getString("abortedbackup"));
                     }
                 } else {
-
                     // Default don't do backup.
                     boolean doBackup = false;
 
-                    // Get all online players.
-                    Player[] players = pluginServer.getOnlinePlayers();
-
-                    // Loop players.
-                    for (Player currentplayer : players) {
+                    // Get all online players and loop through them.
+                    for (Player currentplayer : pluginServer.getOnlinePlayers()) {
                         // If any players do not have the node, do the doBackup.
                         if (!currentplayer.hasPermission("backup.bypass")) {
                             doBackup = true;
@@ -111,10 +96,9 @@ public class PrepareBackup implements Runnable {
     }
 
     /**
-     * Prepared for, and starts, a doBackup.
+     * Prepares for, and starts, a doBackup.
      */
     protected void prepareBackup() {
-
         // Tell the world!
         backupInProgress = true;
 
@@ -134,13 +118,8 @@ public class PrepareBackup implements Runnable {
             world.save();
         }
 
-        // Scedule the doBackup.
+        // Schedule the doBackup.
         pluginServer.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-
-<<<<<<< HEAD
-=======
-            @Override
->>>>>>> dev
             public void run() {
                 pluginServer.getScheduler().runTaskAsynchronously(plugin, BackupFull.backupTask);
             }
@@ -153,12 +132,11 @@ public class PrepareBackup implements Runnable {
      *
      */
     private void notifyStarted() {
-
         // Get message.
         String startBackupMessage = strings.getString("backupstarted");
 
         // Check the string is set.
-        if (startBackupMessage != null && !startBackupMessage.trim().isEmpty()) {
+        if (startBackupMessage != null) {
 
             // Check if we are using multiple lines.
             if (startBackupMessage.contains(";;")) {
@@ -173,54 +151,29 @@ public class PrepareBackup implements Runnable {
                     String thisMessage = messageList.get(i);
 
                     // Notify all players, regardless of the permission node.
-                    if (settings.getBooleanProperty("notifyallplayers", true)) {
-                        pluginServer.broadcastMessage(thisMessage);
-                    } else {
-
-                        // Get all players.
-                        Player[] players = pluginServer.getOnlinePlayers();
-
-                        // Loop through all online players.
-<<<<<<< HEAD
-                        for (int pos = 0; pos < players.length; pos++) {
-                            Player currentplayer = players[pos];
-
-=======
-                        for (Player currentplayer : players) {
->>>>>>> dev
-                            // If the current player has the right permissions, notify them.
-                            if (currentplayer.hasPermission("backup.notify")) {
-                                currentplayer.sendMessage(thisMessage);
-                            }
-                        }
-                    }
+                    this.notifyPlayers(thisMessage);
                 }
-
             } else {
-
                 // Notify all players, regardless of the permission node.
-                if (settings.getBooleanProperty("notifyallplayers", true)) {
-                    pluginServer.broadcastMessage(startBackupMessage);
-                } else {
+                this.notifyPlayers(startBackupMessage);
+            }
+        }
+    }
 
-                    // Get all players.
-                    Player[] players = pluginServer.getOnlinePlayers();
-<<<<<<< HEAD
-
-                    // Loop through all online players.
-                    for (int pos = 0; pos < players.length; pos++) {
-                        Player currentplayer = players[pos];
-
-=======
-
-                    // Loop through all online players.
-                    for (Player currentplayer : players) {
->>>>>>> dev
-                        // If the current player has the right permissions, notify them.
-                        if (currentplayer.hasPermission("backup.notify")) {
-                            currentplayer.sendMessage(startBackupMessage);
-                        }
-                    }
+    /**
+     * Private method to notify all players.
+     * @param message The message of which to notify.
+     */
+    private void notifyPlayers(String message) {
+        // Notify all players, regardless of the permission node.
+        if (settings.getBooleanProperty("notifyallplayers", true)) {
+            pluginServer.broadcastMessage(message);
+        } else {
+            // Get all online players and loop through them.
+            for (Player currentplayer : pluginServer.getOnlinePlayers()) {
+                // If the current player has the right permissions, notify them.
+                if (currentplayer.hasPermission("backup.notify")) {
+                    currentplayer.sendMessage(message);
                 }
             }
         }

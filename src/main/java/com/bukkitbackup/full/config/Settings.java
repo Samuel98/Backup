@@ -4,18 +4,15 @@ import com.bukkitbackup.full.utils.LogUtils;
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
-=======
- * @author gamerx
- * @author me@gamerx.me
->>>>>>> dev
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public final class Settings {
 
@@ -24,19 +21,10 @@ public final class Settings {
     public boolean useMaxSizeBackup = false;
 
     public Settings(File configFile, Strings strings) {
-<<<<<<< HEAD
-        
         // Populate the strings variable.
         Settings.strings = strings;
 
-=======
-
-        // Populate the strings variable.
-        Settings.strings = strings;
-
->>>>>>> dev
         try {
-
             // Checks if configuration file exists, creates it if it does not.
             if (!configFile.exists()) {
                 LogUtils.sendLog(strings.getString("newconfigfile"));
@@ -46,7 +34,6 @@ public final class Settings {
                 String line;
 
                 try {
-
                     // Open a stream to the configuration file in the jar, because we can only access over the class loader.
                     bReader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/resources/config.yml")));
                     bWriter = new BufferedWriter(new FileWriter(configFile));
@@ -56,16 +43,10 @@ public final class Settings {
                         bWriter.write(line);
                         bWriter.newLine();
                     }
-
-<<<<<<< HEAD
-                } catch (Exception e) {
-=======
                 } catch (IOException e) {
->>>>>>> dev
                     LogUtils.exceptionLog(e, "Error opening stream.");
                 } finally {
                     try {
-
                         // Confirm the streams are closed.
                         if (bReader != null) {
                             bReader.close();
@@ -73,11 +54,7 @@ public final class Settings {
                         if (bWriter != null) {
                             bWriter.close();
                         }
-<<<<<<< HEAD
-                    } catch (Exception e) {
-=======
                     } catch (IOException e) {
->>>>>>> dev
                         LogUtils.exceptionLog(e, "Error closing configuration stream.");
                     }
                 }
@@ -86,20 +63,14 @@ public final class Settings {
             // Initialize the configuration, and populate with settings.
             settings = new YamlConfiguration();
             settings.load(configFile);
-
-<<<<<<< HEAD
-        } catch (Exception e) {
-=======
         } catch (IOException e) {
             LogUtils.exceptionLog(e, "Failed to load configuration.");
         } catch (InvalidConfigurationException e) {
->>>>>>> dev
             LogUtils.exceptionLog(e, "Failed to load configuration.");
         }
     }
 
     public void checkSettingsVersion(String requiredVersion) {
-
         // Get the version information from the file.
         String configVersion = settings.getString("version", null);
 

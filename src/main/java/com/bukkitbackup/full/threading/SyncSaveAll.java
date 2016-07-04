@@ -3,14 +3,20 @@ package com.bukkitbackup.full.threading;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
 
+/**
+ * Backup - The simple server backup solution.
+ *
+ * @author Samuel98
+ * @author info@samuel98.com
+ */
 public class SyncSaveAll implements Runnable {
 
     private final Server server;
     private final int mode;
 
     /**
-     * This class is used for synchronizing the save-all task. It is started as
-     * a new thread.
+     * This class is used for synchronizing the save-all task. 
+     * It is started as a new thread.
      *
      * @param server The server object for this plugin.
      * @param mode The type of save-all we are performing.

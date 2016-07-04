@@ -22,23 +22,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
- * @author gamerx@gamerx.me
-=======
- * @author gamerx
- * @author me@gamerx.me
->>>>>>> dev
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class BackupFull extends JavaPlugin {
 
     // Public variables for class comms.
     private static PrepareBackup prepareBackup;
     public static BackupTask backupTask;
-<<<<<<< HEAD
-    
-=======
->>>>>>> dev
+
     // Private variables for this class.
     private static Settings settings;
     private static Strings strings;
@@ -47,7 +39,6 @@ public class BackupFull extends JavaPlugin {
 
     @Override
     public void onLoad() {
-
         // Set Data Folder, Init log utils.
         thisDataFolder = this.getDataFolder();
         LogUtils.initLogUtils(this);
@@ -65,27 +56,10 @@ public class BackupFull extends JavaPlugin {
         // Complete loading log utils.
         LogUtils.finishInitLogUtils(settings.getBooleanProperty("displaylog", true), settings.getBooleanProperty("debugenabled", false));
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
     }
 
     @Override
     public void onEnable() {
-
-<<<<<<< HEAD
-        // BukkitMetrics Loading. (Not Plugin-Specific)
-        try {
-            MetricUtils metricUtils = new MetricUtils(this);
-            metricUtils.start();
-            clientUID = metricUtils.guid;
-        } catch (IOException ex) {
-            LogUtils.exceptionLog(ex, "Exception loading metrics.");
-        }
-        
-=======
->>>>>>> dev
         // Get server and plugin manager instances.
         Server pluginServer = getServer();
         PluginManager pluginManager = pluginServer.getPluginManager();
@@ -95,11 +69,7 @@ public class BackupFull extends JavaPlugin {
 
         // Setup backup tasks.
         backupTask = new BackupTask(this, settings, strings);
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> dev
         // Create new "PrepareBackup" instance.
         prepareBackup = new PrepareBackup(this, settings, strings);
 
@@ -120,14 +90,12 @@ public class BackupFull extends JavaPlugin {
 
         // Matches one or more numbers. (Interpret them as minutes)
         if (backupInterval.matches("^[0-9]+$")) {
-
             // Parse the value to integer.
             backupMinutes = Integer.parseInt(backupInterval);
             LogUtils.sendDebug("Entry is set to minutes. (M:0002)");
 
         } // Matches one or more numbers, followed by a letter.
         else if (backupInterval.matches("[0-9]+[a-z]")) {
-
             // Parse for the integer.
             Pattern timePattern = Pattern.compile("^([0-9]+)[a-z]$");
             Matcher amountTime = timePattern.matcher(backupInterval);
@@ -138,7 +106,6 @@ public class BackupFull extends JavaPlugin {
 
             // Confirm that we found a match for both items.
             if (letterTime.matches() && amountTime.matches()) {
-
                 // Assign values to the variables.
                 String letter = letterTime.group(1);
                 int time = Integer.parseInt(amountTime.group(1));
@@ -163,7 +130,6 @@ public class BackupFull extends JavaPlugin {
 
         } // Matches "TA[02:00,06:00,10:00,14:00,18:00,22:00]", or similar.
         else if (backupInterval.matches("^ta\\[(.*)\\]$")) {
-
             // Parse the string to get the array.
             Pattern letterPattern = Pattern.compile("^ta\\[(.*)\\]$");
             Matcher array = letterPattern.matcher(backupInterval);
@@ -173,29 +139,24 @@ public class BackupFull extends JavaPlugin {
             LogUtils.sendDebug("Found time array string. (M:0003)");
 
         } else {
-
             // Nothing found.
             LogUtils.sendLog(strings.getString("checkbackupinterval"));
             backupMinutes = 0;
             LogUtils.sendDebug("No correct backup interval string found. (M:0004)");
-
         }
 
         // If interval is defined.
         if (backupMinutes != 0) {
-
             // Convert to server ticks.
             int backupIntervalInTicks = (backupMinutes * 1200);
 
             // Schedule a repeating backup task.
             pluginServer.getScheduler().runTaskTimerAsynchronously(this, prepareBackup, backupIntervalInTicks, backupIntervalInTicks);
-<<<<<<< HEAD
 
             LogUtils.sendDebug("Doing recurring backup interval code. (M:0005)");
 
         } // If the backup should be done at pre-defined times.
         else if (backupSchedArray != null) {
-
             // Create a backup scheduler instance.
             BackupScheduler backupScheduler = new BackupScheduler(this, prepareBackup, settings, strings, backupSchedArray);
 
@@ -206,30 +167,6 @@ public class BackupFull extends JavaPlugin {
 
         } // Automatic backups must be disabled.
         else {
-
-            // Alert the user of disabled backup.
-            LogUtils.sendLog(strings.getString("disbaledauto"));
-
-            LogUtils.sendDebug("Disabled automatic backup. (M:0007)");
-
-=======
-
-            LogUtils.sendDebug("Doing recurring backup interval code. (M:0005)");
-
-        } // If the backup should be done at pre-defined times.
-        else if (backupSchedArray != null) {
-
-            // Create a backup scheduler instance.
-            BackupScheduler backupScheduler = new BackupScheduler(this, prepareBackup, settings, strings, backupSchedArray);
-
-            // Start the scheduler as another thread.
-            pluginServer.getScheduler().runTaskAsynchronously(this, backupScheduler);
-
-            LogUtils.sendDebug("Doing time array backup code. (M:0006)");
-
-        } // Automatic backups must be disabled.
-        else {
-
             // Alert the user of disabled backup.
             LogUtils.sendLog(strings.getString("disbaledauto"));
 
@@ -244,14 +181,13 @@ public class BackupFull extends JavaPlugin {
             clientUID = metricUtils.guid;
         } catch (IOException ex) {
             LogUtils.exceptionLog(ex, "Exception loading metrics.");
->>>>>>> dev
         }
 
         // If the update check is enabled.
         if (settings.getBooleanProperty("enableversioncheck", true)) {
 
             // Start the update checker in another thread.
-            pluginServer.getScheduler().runTaskAsynchronously(this, new UpdateChecker(this.getDescription(), strings, clientUID));
+            //pluginServer.getScheduler().runTaskAsynchronously(this, new UpdateChecker(this.getDescription(), strings, clientUID)); // TODO: Disabled due to the website no-longer being active.
         }
 
         // Notify loading complete.
@@ -260,7 +196,6 @@ public class BackupFull extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
         // Stop any scheduled tasks.
         this.getServer().getScheduler().cancelTasks(this);
 

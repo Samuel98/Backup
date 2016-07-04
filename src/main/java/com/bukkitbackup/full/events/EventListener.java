@@ -16,8 +16,8 @@ import org.bukkit.plugin.Plugin;
 /**
  * Backup - The simple server backup solution.
  *
- * @author gamerx
- * @author me@gamerx.me
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class EventListener implements Listener {
 
@@ -63,9 +63,9 @@ public class EventListener implements Listener {
      *
      */
     // @TODO determine how we should handle this if backups are at specific times.
-    // for now, i set it to 15 mins.
+    // for now, I set it to 15 mins.
     private void playerPart(PlayerEvent event) {
-        int onlinePlayers = plugin.getServer().getOnlinePlayers().length;
+        int onlinePlayers = plugin.getServer().getOnlinePlayers().size();
         // Check if it was the last player, and we need to stop backups after this last player leaves.
         if (onlinePlayers == 1 && !settings.getBooleanProperty("backupemptyserver", false)) {
             prepareBackup.isLastBackup = true;
@@ -73,11 +73,7 @@ public class EventListener implements Listener {
             int intervalInMinutes = 15;
             if (intervalInMinutes != 0) {
                 int interval = intervalInMinutes * 1200;
-<<<<<<< HEAD
-                lastBackupID = plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, prepareBackup, interval);
-=======
                 lastBackupID = plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, prepareBackup, interval);
->>>>>>> dev
                 LogUtils.sendLog(strings.getString("schedlastbackup", Integer.toString(intervalInMinutes)));
             } else {
                 LogUtils.sendLog(strings.getString("disbaledauto"));

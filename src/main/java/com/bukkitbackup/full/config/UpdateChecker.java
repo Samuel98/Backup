@@ -2,6 +2,7 @@ package com.bukkitbackup.full.config;
 
 import com.bukkitbackup.full.utils.LogUtils;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -9,24 +10,14 @@ import org.bukkit.plugin.PluginDescriptionFile;
 /**
  * Backup - The simple server backup solution.
  *
-<<<<<<< HEAD
- * @author Domenic Horner (gamerx)
- */
-public class UpdateChecker implements Runnable {
-
-    private PluginDescriptionFile descriptionFile;
-    private Strings strings;
-    private String clientID;
-=======
- * @author gamerx
- * @author me@gamerx.me
+ * @author Samuel98
+ * @author info@samuel98.com
  */
 public class UpdateChecker implements Runnable {
 
     private final PluginDescriptionFile descriptionFile;
     private final Strings strings;
     private final String clientID;
->>>>>>> dev
 
     public UpdateChecker(PluginDescriptionFile descriptionFile, Strings strings, String clientID) {
         this.descriptionFile = descriptionFile;
@@ -35,7 +26,6 @@ public class UpdateChecker implements Runnable {
     }
 
     public void run() {
-
         // Read the version from the web.
         String webVersion = getVersion();
 
@@ -43,7 +33,6 @@ public class UpdateChecker implements Runnable {
         if (webVersion == null) {
             LogUtils.sendLog(strings.getString("errorversioncheck"));
         } else {
-
             // Check versions and output log to the user.
             if (!webVersion.equals(descriptionFile.getVersion())) {
                 LogUtils.sendLog(strings.getString("pluginoutdate", descriptionFile.getVersion(), webVersion));
@@ -62,7 +51,6 @@ public class UpdateChecker implements Runnable {
     public String getVersion() {
         String webVersion;
         try {
-
             // Configure the URL to pull updated from.
             URL updateURL = new URL("http://checkin.bukkitbackup.com/?ver=" + descriptionFile.getVersion() + "&uuid=" + clientID + "&name=" + descriptionFile.getName() + "&fromplugin");
 
@@ -77,12 +65,8 @@ public class UpdateChecker implements Runnable {
 
             // Return the version.
             return webVersion;
-<<<<<<< HEAD
-        } catch (Exception e) {
-=======
         } catch (IOException e) {
             LogUtils.exceptionLog(e, "Error checking for strings file.");
->>>>>>> dev
             return null;
         }
     }
