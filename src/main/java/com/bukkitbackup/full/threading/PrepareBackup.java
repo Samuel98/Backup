@@ -145,11 +145,8 @@ public class PrepareBackup implements Runnable {
                 List<String> messageList = Arrays.asList(startBackupMessage.split(";;"));
 
                 // Loop the lines of this message.
-                for (int i = 0; i < messageList.size(); i++) {
-
+                for (String thisMessage : messageList) {
                     // Retrieve this line of the message.
-                    String thisMessage = messageList.get(i);
-
                     // Notify all players, regardless of the permission node.
                     this.notifyPlayers(thisMessage);
                 }
